@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">android service</string>
+    
+    <string name="musicService">Service</string>
+    <string name="musicReceiver">Receiver</string>
+    <string name="bindMusicService">Bind</string>
+    <string name="remoteMusicService">Remote</string>
+    
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
+    <string name="pause">Pause</string>
+    <string name="exit">Exit</string>
+    
+    <string name="close">Close</string>
+
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/musicService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/musicService" />
+
+    <Button
+        android:id="@+id/musicReceiver"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/musicReceiver" />
+    
+    <Button
+        android:id="@+id/bindMusicService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bindMusicService" />
+
+    <Button
+        android:id="@+id/remoteMusicService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/remoteMusicService" />
+
+</LinearLayout>

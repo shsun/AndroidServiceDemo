@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Users/shanghai/Downloads/ServiceDemo/src/com/example/remote/IMusicControlService.aidl
+ * Original file: /Users/shanghai/Downloads/AndroidServiceDemo/ServiceDemo/src/com/example/remote/IMusicControlService.aidl
  */
 package com.example.remote;
 public interface IMusicControlService extends android.os.IInterface

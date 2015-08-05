@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -94,6 +95,8 @@ public class PlayRemoteMusicActivity extends Activity implements OnClickListener
 
 	@Override
 	public void onDestroy() {
+		Log.i(TAG, "onDestroy");
+
 		super.onDestroy();
 
 		if (sc != null) {

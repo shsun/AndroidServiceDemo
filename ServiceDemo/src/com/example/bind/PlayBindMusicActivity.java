@@ -15,6 +15,8 @@ import com.example.R;
 
 public class PlayBindMusicActivity extends Activity implements OnClickListener {
 
+	public static final String TAG = "PlayBindMusicActivity";
+
 	private Button playBtn;
 	private Button stopBtn;
 	private Button pauseBtn;
@@ -43,7 +45,7 @@ public class PlayBindMusicActivity extends Activity implements OnClickListener {
 
 	private void connection() {
 		Intent intent = new Intent("com.example.bind.bindService");
-		bindService(intent, sc, Context.BIND_AUTO_CREATE); 
+		bindService(intent, serviceConnectionListener, Context.BIND_AUTO_CREATE); 
 	}
 
 	@Override
@@ -67,12 +69,13 @@ public class PlayBindMusicActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-
-	private ServiceConnection sc = new ServiceConnection() {
-
+	
+	/**
+	 * 
+	 */
+	private ServiceConnection serviceConnectionListener = new ServiceConnection() {
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
-			// connect Service
 			musicService = ((BindMusicService.MusicBinder) (service)).getService();
 			if (musicService != null) {
 				musicService.play();
@@ -90,8 +93,8 @@ public class PlayBindMusicActivity extends Activity implements OnClickListener {
 	public void onDestroy() {
 		super.onDestroy();
 
-		if (sc != null) {
-			unbindService(sc);
+		if (serviceConnectionListener != null) {
+			unbindService(serviceConnectionListener);
 		}
 	}
 }

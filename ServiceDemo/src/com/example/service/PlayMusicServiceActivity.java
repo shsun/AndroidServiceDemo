@@ -3,20 +3,23 @@ package com.example.service;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.example.R;
-
+import com.example.Utils;
 
 public class PlayMusicServiceActivity extends Activity implements OnClickListener {
+
+	public static final String TAG = "PlayMusicServiceActivity";
 
 	private Button playBtn;
 	private Button stopBtn;
 	private Button pauseBtn;
 	private Button exitBtn;
-	
+
 	private Button closeBtn;
 
 	private Intent intent;
@@ -26,6 +29,10 @@ public class PlayMusicServiceActivity extends Activity implements OnClickListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.music_service);
 
+		String p = Utils.getCurProcessName(this);		
+		Thread thread = Thread.currentThread();
+
+		
 		playBtn = (Button) findViewById(R.id.play);
 		stopBtn = (Button) findViewById(R.id.stop);
 		pauseBtn = (Button) findViewById(R.id.pause);
@@ -42,31 +49,30 @@ public class PlayMusicServiceActivity extends Activity implements OnClickListene
 
 	@Override
 	public void onClick(View v) {
-		int op = -1;
+		int operation = -1;
 		intent = new Intent("com.example.service.musicService");
-
 		switch (v.getId()) {
 		case R.id.play:
-			op = 1;
+			operation = 1;
 			break;
-		case R.id.stop: // stop music
-			op = 2;
+		case R.id.stop:
+			operation = 2;
 			break;
-		case R.id.pause: // pause music
-			op = 3;
+		case R.id.pause:
+			operation = 3;
 			break;
-		case R.id.close: // close activity
+		case R.id.close:
 			this.finish();
 			break;
-		case R.id.exit: // stopService
-			op = 4;
+		case R.id.exit:
+			operation = 4;
 			stopService(intent);
 			this.finish();
 			break;
 		}
 
 		Bundle bundle = new Bundle();
-		bundle.putInt("op", op);
+		bundle.putInt("op", operation);
 		intent.putExtras(bundle);
 
 		startService(intent);
@@ -74,6 +80,7 @@ public class PlayMusicServiceActivity extends Activity implements OnClickListene
 
 	@Override
 	public void onDestroy() {
+		Log.i(TAG, "onDestroy");
 		super.onDestroy();
 
 		if (intent != null) {

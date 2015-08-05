@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.io.IOException;
+
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
@@ -11,22 +12,28 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.R;
-
-
+import com.example.Utils;
 
 public class MusicService extends Service {
+
 	private static final String TAG = "MusicService";
 
 	private MediaPlayer mediaPlayer;
 
 	@Override
 	public IBinder onBind(Intent arg0) {
+		Log.i(TAG, "onBind" + arg0);
 		return null;
 	}
 
 	@Override
 	public void onCreate() {
-		Log.d(TAG, "onCreate");
+		
+		Log.i(TAG, "onCreate ");
+		
+		String p = Utils.getCurProcessName(this);		
+		Thread thread = Thread.currentThread();
+		
 		Toast.makeText(this, "show media player", Toast.LENGTH_SHORT).show();
 
 		if (mediaPlayer == null) {
@@ -38,7 +45,7 @@ public class MusicService extends Service {
 	@SuppressLint("ShowToast")
 	@Override
 	public void onDestroy() {
-		Log.d(TAG, "onDestroy");
+		Log.i(TAG, "onDestroy");
 		Toast.makeText(this, "stop media player", Toast.LENGTH_SHORT);
 		if (mediaPlayer != null) {
 			mediaPlayer.stop();
@@ -48,11 +55,12 @@ public class MusicService extends Service {
 
 	@Override
 	public void onStart(Intent intent, int startId) {
-		Log.d(TAG, "onStart");
+		Log.i(TAG, "onStart");
 		if (intent != null) {
 			Bundle bundle = intent.getExtras();
 			if (bundle != null) {
 				int op = bundle.getInt("op");
+				Log.i(TAG, "onStart op=" + op);
 				switch (op) {
 				case 1:
 					play();
@@ -88,7 +96,7 @@ public class MusicService extends Service {
 				// stopped it.
 				mediaPlayer.prepare();
 			} catch (IOException ex) {
-				ex.printStackTrace();
+				Log.i(TAG, ex.getMessage());
 			}
 		}
 	}

@@ -11,6 +11,8 @@ import com.example.R;
 
 public class PlayMusicRecevicerActivity extends Activity implements OnClickListener {
 
+	public static final String TAG = "PlayMusicRecevicerActivity";
+
 	private Button playBtn;
 	private Button stopBtn;
 	private Button pauseBtn;

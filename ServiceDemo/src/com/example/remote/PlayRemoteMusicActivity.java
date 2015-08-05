@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-
 import com.example.remote.IMusicControlService;
 import com.example.R;
 
 public class PlayRemoteMusicActivity extends Activity implements OnClickListener {
 
+	public static final String TAG = "PlayRemoteMusicActivity";
+
+	
 	private Button playBtn;
 	private Button stopBtn;
 	private Button pauseBtn;

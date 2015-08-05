@@ -1,6 +1,7 @@
 package com.example.bind;
 
 import java.io.IOException;
+
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
@@ -10,10 +11,15 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 import com.example.R;
+import com.example.Utils;
 
 public class BindMusicService extends Service {
 
+	public static final String TAG = "BindMusicService";
+
 	private MediaPlayer mediaPlayer;
+
+	// --------------------------------------------------------------------------------
 
 	private final IBinder binder = new MusicBinder();
 
@@ -23,6 +29,8 @@ public class BindMusicService extends Service {
 		}
 	}
 
+	// --------------------------------------------------------------------------------
+	
 	@Override
 	public IBinder onBind(Intent intent) {
 		return binder;
@@ -32,6 +40,9 @@ public class BindMusicService extends Service {
 	public void onCreate() {
 		super.onCreate();
 
+		String p = Utils.getCurProcessName(this);		
+		Thread thread = Thread.currentThread();
+		
 		Toast.makeText(this, "show media player", Toast.LENGTH_SHORT).show();
 	}
 

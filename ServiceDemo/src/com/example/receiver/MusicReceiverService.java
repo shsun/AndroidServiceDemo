@@ -1,6 +1,7 @@
 package com.example.receiver;
 
 import java.io.IOException;
+
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
@@ -10,9 +11,12 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 import com.example.R;
+import com.example.Utils;
 
 
 public class MusicReceiverService extends Service {
+
+	public static final String TAG = "MusicReceiverService";
 
 	private MediaPlayer mediaPlayer;
 
@@ -25,6 +29,9 @@ public class MusicReceiverService extends Service {
 	public void onCreate() {
 		Toast.makeText(this, "show media player", Toast.LENGTH_SHORT).show();
 
+		String p = Utils.getCurProcessName(this);		
+		Thread thread = Thread.currentThread();
+		
 		if (mediaPlayer == null) {
 			mediaPlayer = MediaPlayer.create(this, R.raw.xby);
 			mediaPlayer.setLooping(false);

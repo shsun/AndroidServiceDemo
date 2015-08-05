@@ -7,18 +7,25 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 
 import com.example.remote.IMusicControlService;
 import com.example.remote.IMusicControlService.Stub;
-
 import com.example.R;
+import com.example.Utils;
 
 public class RemoteMusicService extends Service {
+
+	public static final String TAG = "RemoteMusicService";
 
 	private MediaPlayer mediaPlayer;
 
 	@Override
 	public IBinder onBind(Intent intent) {
+		
+		String p = Utils.getCurProcessName(this);		
+		Thread thread = Thread.currentThread();
+		
 		return binder;
 	}
 
@@ -48,8 +55,8 @@ public class RemoteMusicService extends Service {
 				mediaPlayer.stop();
 				try {
 					mediaPlayer.prepare();
-				} catch (IOException ex) {
-					ex.printStackTrace();
+				} catch (IOException e) {
+					Log.i(TAG, e.getMessage());
 				}
 			}
 		}

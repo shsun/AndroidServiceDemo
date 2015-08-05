@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 public class MusicReceiver extends BroadcastReceiver {
 
+	public static final String TAG = "MusicReceiver";
+
 	public MusicReceiver() {
 		super();
 	}

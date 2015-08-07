@@ -16,38 +16,38 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 
-public class CameraActivity extends Activity implements CamOpenOverCallback {
+public class CameraActivity extends Activity implements CamOpenOverCallback,SurfaceHolder.Callback {
 	private static final String TAG = "yanzi";
 	CameraSurfaceView surfaceView = null;
 	ImageButton shutterBtn;
 	float previewRate = -1f;
+	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Thread openThread = new Thread(){
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				CameraInterface.getInstance().doOpenCamera(CameraActivity.this);
-			}
-		};
-		openThread.start();
+		
+		
+		
 		setContentView(R.layout.activity_camera);
 		initUI();
-		initViewParams();
+		//initViewParams();
 		
 		shutterBtn.setOnClickListener(new BtnListeners());
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.camera, menu);
 		return true;
 	}
 
 	private void initUI(){
 		surfaceView = (CameraSurfaceView)findViewById(R.id.camera_surfaceview);
+		surfaceView.addCallback(this);	
+		
+		
 		shutterBtn = (ImageButton)findViewById(R.id.btn_shutter);
 	}
 	private void initViewParams(){
@@ -55,10 +55,9 @@ public class CameraActivity extends Activity implements CamOpenOverCallback {
 		Point p = DisplayUtil.getScreenMetrics(this);
 		params.width = p.x;
 		params.height = p.y;
-		previewRate = DisplayUtil.getScreenRate(this); //默认全屏的比例预览
+		previewRate = DisplayUtil.getScreenRate(this);
 		surfaceView.setLayoutParams(params);
 
-		//手动设置拍照ImageButton的大小为120dip×120dip,原图片大小是64×64
 		LayoutParams p2 = shutterBtn.getLayoutParams();
 		p2.width = DisplayUtil.dip2px(this, 80);
 		p2.height = DisplayUtil.dip2px(this, 80);;		
@@ -68,7 +67,6 @@ public class CameraActivity extends Activity implements CamOpenOverCallback {
 
 	@Override
 	public void cameraHasOpened() {
-		// TODO Auto-generated method stub
 		SurfaceHolder holder = surfaceView.getSurfaceHolder();
 		CameraInterface.getInstance().doStartPreview(holder, previewRate);
 	}
@@ -85,6 +83,34 @@ public class CameraActivity extends Activity implements CamOpenOverCallback {
 			}
 		}
 
+	}
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		
+		initViewParams();
+		
+		Thread openThread = new Thread(){
+			@Override
+			public void run() {
+				CameraInterface.getInstance().doOpenCamera(CameraActivity.this);
+			}
+		};
+
+		openThread.start();
+		
+	}
+
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
